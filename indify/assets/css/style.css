@@ -665,3 +665,13 @@ img {
   padding: 0.5rem 0.65rem;
   cursor: pointer;
 }
+
+.l-header {
+  margin-bottom: 40px; /* Espace sous la barre de navigation */
+  /*background-color: #162d50; /* Couleur du fond pour la barre */
+  color: #fff; /* Texte en blanc */
+}
+
+.services {
+  margin-top: 40px; /* Optionnel : espace en haut de la section */
+}

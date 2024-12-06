@@ -73,38 +73,54 @@
       </nav>
     </header>
     <!-- Home -->
-    <section class="services" id="services">
-      <h2 class="section-title" data-aos="fade-up">Project</h2>
+    <section class="rss-feed" id="rss-feed">
+      <h2 class="section-title" data-aos="fade-up">Veille Technologique</h2>
       <p class="section-subtitle" data-aos="fade-up">
-        Je sui actuellement en BTS SIO SISR au sein de l'école <Strong>UTEC</Strong>
+        Consultez les derniers articles depuis IT-Connect.
       </p>
-      <div class="portfolio__container bd-container bd-grid swiper" data-aos="fade-up">
-        <div class="swiper-wrapper">
-          <div class="portfolio__data swiper-slide">
-            <h3 class="portfolio__title">SN NET</h3>
-            <div class="portfolio__img">
-              <img src="assets/img/snnet.png" alt="" />
-            </div>
-            <p class="portfolio__description">
-              SN NET et une infrastructure réseaux réaliser sur packet trace réaliser durant ma dernier année de BAC, se réseaux contien 2 batiment et contien 4 vlan et avec plus de 40 périférique réseaux 
-            </p>
-            <a class="portfolio__link">
-              <span>Visit website <i class="fas fa-arrow-circle-right"></i></span>
-            </a>
-          </div>
+      <div id="rss-container" class="rss-container bd-container" data-aos="fade-up">
+        <!-- Les articles seront injectés ici -->
+      </div>
     </section>
+    
+    <script>
+      // URL du flux RSS (passé par RSS2JSON pour convertir en JSON)
+      const rssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://www.it-connect.fr/feed/";
+    
+      // Conteneur où afficher les articles
+      const rssContainer = document.getElementById("rss-container");
+    
+      // Récupération et affichage des articles RSS
+      fetch(rssUrl)
+        .then(response => response.json())
+        .then(data => {
+          const articles = data.items.slice(0, 5); // Limite aux 5 derniers articles
+          let output = "";
+    
+          articles.forEach(article => {
+            output += `
+              <div class="rss-item">
+                <h3 class="rss-title"><a href="${article.link}" target="_blank">${article.title}</a></h3>
+                <p class="rss-description">${article.description.substring(0, 150)}...</p>
+                <small>Publié le : ${new Date(article.pubDate).toLocaleDateString()}</small>
+              </div>
+            `;
+          });
+    
+          rssContainer.innerHTML = output;
+        })
+        .catch(error => {
+          console.error("Erreur lors du chargement du flux RSS :", error);
+          rssContainer.innerHTML = "<p>Impossible de charger le flux RSS pour le moment.</p>";
+        });
+    </script>
+    
 
     <!-- Services -->
     
     </section>
     <!-- Footer -->
-    <footer id="contact">
-      <footer class="footer section">
-        <div class="footer__container bd-grid">
-          <h3 class="footer__copy">Template made with ❤️ by <a class="footer__copy-link" href="https://github.com/felixmacaspac" target="_blank">Felix Macaspac</a></h3>
-        </div>
-      </footer>
-    </footer>
+    
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <!-- JS script -->
